@@ -295,10 +295,7 @@
 
     <div class="feature-card">
 
-        <h2 style="margin-bottom:20px;">
-            💊 Dorilar
-        </h2>
-<!-- DORILAR -->
+        <!-- DORILAR -->
 
 <div class="feature-card">
 
@@ -355,6 +352,9 @@
                     <th style="padding:12px;border-bottom:1px solid #ddd;">
                         Turi
                     </th>
+		    <th style="padding:12px;border-bottom:1px solid #ddd;">
+    			Amal
+		    </th>
 
                 </tr>
 
@@ -390,7 +390,41 @@
                     <td style="padding:12px;border-bottom:1px solid #eee;">
                         {{ medicine["form"] }}
                     </td>
+<td style="padding:12px;border-bottom:1px solid #eee;">
 
+    <a href="/admin/medicine/edit/{{ medicine['id'] }}"
+       style="
+           display:inline-block;
+           padding:7px 10px;
+           background:#0d6efd;
+           color:white;
+           text-decoration:none;
+           border-radius:6px;
+           margin-right:5px;
+       ">
+        ✏️ Tahrirlash
+    </a>
+
+    <form action="/admin/medicine/delete/{{ medicine['id'] }}"
+          method="post"
+          style="display:inline;">
+
+        <button type="submit"
+                onclick="return confirm('Bu dorini o‘chirmoqchimisiz?')"
+                style="
+                    padding:7px 10px;
+                    background:#dc3545;
+                    color:white;
+                    border:none;
+                    border-radius:6px;
+                    cursor:pointer;
+                ">
+            🗑 O‘chirish
+        </button>
+
+    </form>
+
+</td>
                 </tr>
 
             {% endfor %}

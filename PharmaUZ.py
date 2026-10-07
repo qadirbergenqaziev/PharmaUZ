@@ -662,6 +662,91 @@ def admin_add_medicine():
 
     return render_template("admin_add_medicine.html")
 
+@app.route("/admin/medicine/edit/<int:medicine_id>", methods=["GET", "POST"])
+def admin_edit_medicine(medicine_id):
+
+    if not session.get("admin_logged_in"):
+        return redirect("/admin/login")
+
+    conn = get_db()
+
+    medicine = conn.execute("""
+        SELECT *
+        FROM medicines
+        WHERE id = ?
+    """, (medicine_id,)).fetchone()
+
+    if not medicine:
+        conn.close()
+        return redirect("/admin")
+
+    if request.method == "POST":
+
+        name = request.form.get("name")
+        active_ingredient = request.form.get("active_ingredient")
+        manufacturer = request.form.get("manufacturer")
+        dosage = request.form.get("dosage")
+        form = request.form.get("form")
+        prescription_required = request.form.get("prescription_required")
+
+        prescription_required = 1 if prescription_required == "1" else 0
+
+        conn.execute("""
+            UPDATE medicines
+            SET name = ?,
+                active_ingredient = ?,
+                manufacturer = ?,
+                dosage = ?,
+                form = ?,
+                prescription_required = ?
+            WHERE id = ?
+        """, (
+            name,
+            active_ingredient,
+            manufacturer,
+            dosage,
+            form,
+            prescription_required,
+            medicine_id
+        ))
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/admin")
+
+    conn.close()
+
+    return render_template(
+        "admin_edit_medicine.html",
+        medicine=medicine
+    )
+
+@app.route("/admin/medicine/delete/<int:medicine_id>", methods=["POST"])
+def admin_delete_medicine(medicine_id):
+
+    if not session.get("admin_logged_in"):
+        return redirect("/admin/login")
+
+    conn = get_db()
+
+    # Avval shu doriga bog‘langan ombor yozuvlarini o‘chiramiz
+    conn.execute("""
+        DELETE FROM inventory
+        WHERE medicine_id = ?
+    """, (medicine_id,))
+
+    # Keyin dorining o‘zini o‘chiramiz
+    conn.execute("""
+        DELETE FROM medicines
+        WHERE id = ?
+    """, (medicine_id,))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/admin")
+
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
 

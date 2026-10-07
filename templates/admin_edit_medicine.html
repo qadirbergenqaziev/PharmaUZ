@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dorini tahrirlash — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="feature-card"
+         style="max-width:600px; margin:40px auto;">
+
+        <h2>
+            ✏️ Dorini tahrirlash
+        </h2>
+
+        <form method="POST">
+
+            <label>Dori nomi</label>
+
+            <input
+                type="text"
+                name="name"
+                value="{{ medicine['name'] }}"
+                required
+            >
+
+            <br><br>
+
+            <label>Faol modda</label>
+
+            <input
+                type="text"
+                name="active_ingredient"
+                value="{{ medicine['active_ingredient'] }}"
+            >
+
+            <br><br>
+
+            <label>Ishlab chiqaruvchi</label>
+
+            <input
+                type="text"
+                name="manufacturer"
+                value="{{ medicine['manufacturer'] }}"
+            >
+
+            <br><br>
+
+            <label>Doza</label>
+
+            <input
+                type="text"
+                name="dosage"
+                value="{{ medicine['dosage'] }}"
+            >
+
+            <br><br>
+
+            <label>Dori turi</label>
+
+            <select name="form">
+
+                <option value="Tabletka"
+                    {% if medicine["form"] == "Tabletka" %}selected{% endif %}>
+                    Tabletka
+                </option>
+
+                <option value="Kapsula"
+                    {% if medicine["form"] == "Kapsula" %}selected{% endif %}>
+                    Kapsula
+                </option>
+
+                <option value="Sirop"
+                    {% if medicine["form"] == "Sirop" %}selected{% endif %}>
+                    Sirop
+                </option>
+
+                <option value="Inyeksiya"
+                    {% if medicine["form"] == "Inyeksiya" %}selected{% endif %}>
+                    Inyeksiya
+                </option>
+
+                <option value="Maz"
+                    {% if medicine["form"] == "Maz" %}selected{% endif %}>
+                    Maz
+                </option>
+
+                <option value="Tomchi"
+                    {% if medicine["form"] == "Tomchi" %}selected{% endif %}>
+                    Tomchi
+                </option>
+
+                <option value="Kukun"
+                    {% if medicine["form"] == "Kukun" %}selected{% endif %}>
+                    Kukun
+                </option>
+
+                <option value="Boshqa"
+                    {% if medicine["form"] == "Boshqa" %}selected{% endif %}>
+                    Boshqa
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <label>
+                Retsept talab qilinadimi?
+            </label>
+
+            <select name="prescription_required">
+
+                <option value="0"
+                    {% if not medicine["prescription_required"] %}selected{% endif %}>
+                    Yo‘q
+                </option>
+
+                <option value="1"
+                    {% if medicine["prescription_required"] %}selected{% endif %}>
+                    Ha
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <button type="submit">
+                💾 Saqlash
+            </button>
+
+            <a href="/admin"
+               style="margin-left:10px;">
+                Bekor qilish
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
