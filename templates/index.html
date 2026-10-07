@@ -52,12 +52,35 @@
                     class="search-box"
                 >
 
-                    <input
-                        type="text"
-                        name="q"
-                        placeholder="Dori nomini kiriting..."
-                        required
-                    >
+                    <div style="position:relative; flex:1;">
+
+    <input
+        type="text"
+        name="q"
+        id="medicine-search"
+        placeholder="Dori nomini kiriting..."
+        autocomplete="off"
+        required
+    >
+
+    <div id="suggestions"
+         style="
+             position:absolute;
+             top:100%;
+             left:0;
+             right:0;
+             background:white;
+             border:1px solid #ddd;
+             border-top:none;
+             border-radius:0 0 8px 8px;
+             z-index:1000;
+             display:none;
+             max-height:250px;
+             overflow-y:auto;
+         ">
+    </div>
+
+</div>
 
                     <button type="submit">
                         🔍 Qidirish
@@ -211,6 +234,100 @@
         </p>
 
     </footer>
+<script>
+
+const searchInput = document.getElementById("medicine-search");
+const suggestionsBox = document.getElementById("suggestions");
+
+searchInput.addEventListener("input", async function () {
+
+    const q = this.value.trim();
+
+    if (q.length === 0) {
+        suggestionsBox.style.display = "none";
+        suggestionsBox.innerHTML = "";
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "/api/medicines?q=" + encodeURIComponent(q)
+        );
+
+        const medicines = await response.json();
+
+        suggestionsBox.innerHTML = "";
+
+        if (medicines.length === 0) {
+            suggestionsBox.style.display = "none";
+            return;
+        }
+
+        medicines.forEach(function (medicine) {
+
+            const item = document.createElement("div");
+
+            let text = medicine.name;
+
+            if (medicine.dosage) {
+                text += " — " + medicine.dosage;
+            }
+
+            item.textContent = text;
+
+            item.style.padding = "10px 12px";
+            item.style.cursor = "pointer";
+            item.style.borderBottom = "1px solid #eee";
+            item.style.color = "#222";
+            item.style.background = "white";
+
+            item.addEventListener("mouseenter", function () {
+                item.style.background = "#f1f3f5";
+            });
+
+            item.addEventListener("mouseleave", function () {
+                item.style.background = "white";
+            });
+
+            item.addEventListener("click", function () {
+
+                searchInput.value = medicine.name;
+
+                suggestionsBox.style.display = "none";
+                suggestionsBox.innerHTML = "";
+
+            });
+
+            suggestionsBox.appendChild(item);
+
+        });
+
+        suggestionsBox.style.display = "block";
+
+    } catch (error) {
+
+        console.error(error);
+
+        suggestionsBox.style.display = "none";
+
+    }
+
+});
+
+
+document.addEventListener("click", function (event) {
+
+    if (
+        event.target !== searchInput &&
+        !suggestionsBox.contains(event.target)
+    ) {
+        suggestionsBox.style.display = "none";
+    }
+
+});
+
+</script>
 
 </body>
 

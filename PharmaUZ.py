@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3
 import os
 from datetime import datetime
@@ -746,6 +746,34 @@ def admin_delete_medicine(medicine_id):
     conn.close()
 
     return redirect("/admin")
+
+@app.route("/api/medicines")
+def api_medicines():
+
+    q = request.args.get("q", "").strip()
+
+    conn = get_db()
+
+    medicines = conn.execute("""
+        SELECT id, name, dosage
+        FROM medicines
+        WHERE name LIKE ?
+        ORDER BY name
+        LIMIT 10
+    """, (q + "%",)).fetchall()
+
+    conn.close()
+
+    result = []
+
+    for medicine in medicines:
+        result.append({
+            "id": medicine["id"],
+            "name": medicine["name"],
+            "dosage": medicine["dosage"]
+        })
+
+    return jsonify(result)
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
