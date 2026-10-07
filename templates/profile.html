@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dorixona profili — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div class="location">
+            🏥 Dorixona profili
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="features">
+
+<div class="container">
+
+    <div class="feature-card"
+         style="
+            max-width:600px;
+            margin:50px auto;
+         ">
+
+        <h1 style="margin-bottom:25px;">
+            🏥 Dorixona profili
+        </h1>
+
+
+        <div style="
+            text-align:left;
+            margin-bottom:25px;
+        ">
+
+            <p>
+                <b>Dorixona nomi:</b><br>
+                {{ pharmacy["name"] }}
+            </p>
+
+            <hr style="
+                border:none;
+                border-top:1px solid #eee;
+                margin:15px 0;
+            ">
+
+
+            <p>
+                <b>Shahar:</b><br>
+                {{ pharmacy["city"] }}
+            </p>
+
+            <hr style="
+                border:none;
+                border-top:1px solid #eee;
+                margin:15px 0;
+            ">
+
+
+            <p>
+                <b>Manzil:</b><br>
+                {{ pharmacy["address"] }}
+            </p>
+
+            <hr style="
+                border:none;
+                border-top:1px solid #eee;
+                margin:15px 0;
+            ">
+
+
+            <p>
+                <b>Telefon:</b><br>
+                {{ pharmacy["phone"] }}
+            </p>
+
+            <hr style="
+                border:none;
+                border-top:1px solid #eee;
+                margin:15px 0;
+            ">
+<hr style="
+    border:none;
+    border-top:1px solid #eee;
+    margin:15px 0;
+">
+
+<p>
+    <b>Latitude:</b><br>
+    {{ pharmacy["latitude"] }}
+</p>
+
+<hr style="
+    border:none;
+    border-top:1px solid #eee;
+    margin:15px 0;
+">
+
+<p>
+    <b>Longitude:</b><br>
+    {{ pharmacy["longitude"] }}
+</p>
+
+            <p>
+                <b>Login:</b><br>
+                {{ pharmacy["username"] }}
+            </p>
+
+        </div>
+
+
+        <div style="
+            display:flex;
+            gap:10px;
+            justify-content:center;
+            flex-wrap:wrap;
+        ">
+
+            <a href="/dashboard"
+               style="
+                    padding:12px 20px;
+                    background:#6c757d;
+                    color:white;
+                    text-decoration:none;
+                    border-radius:8px;
+               ">
+                ← Dashboard
+            </a>
+
+
+            <a href="/profile/edit"
+               style="
+                    padding:12px 20px;
+                    background:#087f5b;
+                    color:white;
+                    text-decoration:none;
+                    border-radius:8px;
+               ">
+                ✏️ Profilni tahrirlash
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Kerakli dori — kerakli joyda.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

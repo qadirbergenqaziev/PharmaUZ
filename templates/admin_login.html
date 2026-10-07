@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin kirishi — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div class="location">
+            🛡 Admin kirishi
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="features">
+
+<div class="container">
+
+    <div class="feature-card"
+         style="
+            max-width:500px;
+            margin:60px auto;
+         ">
+
+        <h1 style="margin-bottom:25px;">
+            🛡 Admin panelga kirish
+        </h1>
+
+
+        {% if error %}
+
+        <div style="
+            background:#f8d7da;
+            color:#842029;
+            padding:12px;
+            border-radius:8px;
+            margin-bottom:20px;
+        ">
+            ⚠️ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form action="/admin/login" method="post">
+
+            <label>Admin login:</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Loginni kiriting"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 20px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Parol:</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Parolni kiriting"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 25px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <button
+                type="submit"
+                style="
+                    width:100%;
+                    padding:14px;
+                    border:none;
+                    background:#087f5b;
+                    color:white;
+                    border-radius:8px;
+                    font-size:17px;
+                    cursor:pointer;
+                "
+            >
+                🔐 Admin sifatida kirish
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Admin panel.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

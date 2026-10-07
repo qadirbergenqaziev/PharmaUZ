@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Qidiruv — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div class="location">
+            📍 Nukus
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+<section class="features">
+
+    <div class="container">
+
+        <h2>
+            🔎 "{{ query }}" bo‘yicha qidiruv natijalari
+        </h2>
+
+
+        {% if medicines %}
+
+            <div class="feature-grid">
+
+                {% for medicine in medicines %}
+
+                    <div class="feature-card">
+
+                        <div class="icon">💊</div>
+
+                        <h3>
+                            {{ medicine["name"] }}
+                        </h3>
+
+                        <p>
+                            <b>Faol modda:</b>
+                            {{ medicine["active_ingredient"] }}
+                        </p>
+
+                        <p>
+                            <b>Ishlab chiqaruvchi:</b>
+                            {{ medicine["manufacturer"] }}
+                        </p>
+
+                        <p>
+                            <b>Dozasi:</b>
+                            {{ medicine["dosage"] }}
+                        </p>
+
+                        <p>
+                            <b>Shakli:</b>
+                            {{ medicine["form"] }}
+                        </p>
+
+                        <br>
+
+                        <a href="/medicine/{{ medicine['id'] }}"
+                           style="
+                           display:inline-block;
+                           padding:12px 20px;
+                           background:#087f5b;
+                           color:white;
+                           text-decoration:none;
+                           border-radius:8px;
+                           ">
+
+                            Batafsil →
+
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="feature-card"
+                 style="max-width:600px;margin:30px auto;">
+
+                <div class="icon">🔍</div>
+
+                <h3>Dori topilmadi</h3>
+
+                <p>
+                    "{{ query }}" nomli dori bo‘yicha
+                    ma'lumot topilmadi.
+                </p>
+
+                <br>
+
+                <a href="/"
+                   style="
+                   display:inline-block;
+                   padding:12px 20px;
+                   background:#087f5b;
+                   color:white;
+                   text-decoration:none;
+                   border-radius:8px;
+                   ">
+
+                    ← Bosh sahifaga qaytish
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Kerakli dori — kerakli joyda.
+    </p>
+
+</footer>
+
+</body>
+</html>

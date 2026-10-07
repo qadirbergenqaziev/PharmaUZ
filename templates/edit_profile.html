@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profilni tahrirlash — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div class="location">
+            ✏️ Profilni tahrirlash
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="features">
+
+<div class="container">
+
+    <div class="feature-card"
+         style="
+            max-width:600px;
+            margin:50px auto;
+         ">
+
+        <h1 style="margin-bottom:25px;">
+            ✏️ Profilni tahrirlash
+        </h1>
+
+
+        <form action="/profile/edit" method="post">
+
+            <label>Dorixona nomi:</label>
+
+            <input
+                type="text"
+                name="name"
+                value="{{ pharmacy['name'] }}"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Shahar:</label>
+
+            <input
+                type="text"
+                name="city"
+                value="{{ pharmacy['city'] }}"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Manzil:</label>
+
+            <input
+                type="text"
+                name="address"
+                value="{{ pharmacy['address'] }}"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Telefon:</label>
+
+            <input
+                type="text"
+                name="phone"
+                value="{{ pharmacy['phone'] }}"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 25px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+<label>Latitude:</label>
+
+<input
+    type="number"
+    step="any"
+    name="latitude"
+    value="{{ pharmacy['latitude'] if pharmacy['latitude'] is not none else '' }}"
+    placeholder="Masalan: 42.4600"
+    style="
+        width:100%;
+        padding:12px;
+        margin:8px 0 18px;
+        border:1px solid #ddd;
+        border-radius:8px;
+    "
+>
+
+
+<label>Longitude:</label>
+
+<input
+    type="number"
+    step="any"
+    name="longitude"
+    value="{{ pharmacy['longitude'] if pharmacy['longitude'] is not none else '' }}"
+    placeholder="Masalan: 59.6100"
+    style="
+        width:100%;
+        padding:12px;
+        margin:8px 0 25px;
+        border:1px solid #ddd;
+        border-radius:8px;
+    "
+>
+            <button
+                type="submit"
+                style="
+                    width:100%;
+                    padding:14px;
+                    border:none;
+                    background:#087f5b;
+                    color:white;
+                    border-radius:8px;
+                    font-size:17px;
+                    cursor:pointer;
+                "
+            >
+                💾 Saqlash
+            </button>
+
+        </form>
+
+
+        <div style="
+            margin-top:20px;
+            text-align:center;
+        ">
+
+            <a href="/profile">
+                ← Profilga qaytish
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Kerakli dori — kerakli joyda.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

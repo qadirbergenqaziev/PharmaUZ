@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dorixona kabineti — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div>
+            🏥 {{ pharmacy["name"] }}
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="features">
+
+<div class="container">
+
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:30px;
+    ">
+
+        <div>
+
+            <h1>
+                Dorixona kabineti
+            </h1>
+
+            <p>
+                Xush kelibsiz, {{ pharmacy["name"] }}
+            </p>
+
+        </div>
+
+        <a href="/logout"
+           style="
+           padding:10px 18px;
+           background:#dc3545;
+           color:white;
+           text-decoration:none;
+           border-radius:8px;
+           ">
+            Chiqish
+        </a>
+
+    </div>
+
+
+    <div class="feature-card"
+         style="margin-bottom:30px;">
+
+        <h2>🏥 Dorixona ma'lumotlari</h2>
+
+        <p>
+            <b>Shahar:</b>
+            {{ pharmacy["city"] }}
+        </p>
+
+        <p>
+            <b>Manzil:</b>
+            {{ pharmacy["address"] }}
+        </p>
+
+        <p>
+            <b>Telefon:</b>
+            {{ pharmacy["phone"] }}
+        </p>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <h2>
+            📦 Ombordagi dorilar
+        </h2>
+	<a href="/inventory/add">
+    ➕ Yangi dori qo‘shish
+	</a>
+
+        <br>
+
+        {% if products %}
+
+        <div style="overflow-x:auto;">
+
+        <table style="
+            width:100%;
+            border-collapse:collapse;
+        ">
+
+            <thead>
+
+                <tr>
+
+                    <th style="padding:12px;border-bottom:1px solid #ddd;">
+                        Dori
+                    </th>
+
+                    <th style="padding:12px;border-bottom:1px solid #ddd;">
+                        Doza
+                    </th>
+
+                    <th style="padding:12px;border-bottom:1px solid #ddd;">
+                        Turi
+                    </th>
+
+                    <th style="padding:12px;border-bottom:1px solid #ddd;">
+                        Narx
+                    </th>
+
+                    <th style="padding:12px;border-bottom:1px solid #ddd;">
+                        Qoldiq
+                    </th>
+
+                    <th style="padding:12px;border-bottom:1px solid #ddd;">
+                        Yangilangan
+                    </th>
+		
+		<th style="padding:12px;border-bottom:1px solid #ddd;">
+    			Amal
+		</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for product in products %}
+
+                <tr>
+<form
+    id="form-{{ product['inventory_id'] }}"
+    action="/inventory/update/{{ product['inventory_id'] }}"
+    method="post">
+</form>
+
+                    <td style="padding:12px;border-bottom:1px solid #eee;">
+                        {{ product["name"] }}
+                    </td>
+
+                    <td style="padding:12px;border-bottom:1px solid #eee;">
+                        {{ product["dosage"] }}
+                    </td>
+
+                    <td style="padding:12px;border-bottom:1px solid #eee;">
+                        {{ product["form"] }}
+                    </td>
+
+                    <td style="padding:12px;border-bottom:1px solid #eee;">
+
+    <input
+        type="number"
+        name="price"
+        value="{{ product['price'] }}"
+	form="form-{{ product['inventory_id'] }}"
+        style="
+            width:100px;
+            padding:8px;
+        "
+    >
+
+    so‘m
+
+</td>
+
+                    <td style="padding:12px;border-bottom:1px solid #eee;">
+
+    <input
+        type="number"
+        name="quantity"
+        value="{{ product['quantity'] }}"
+	form="form-{{ product['inventory_id'] }}"
+        style="
+            width:80px;
+            padding:8px;
+        "
+    >
+
+    dona
+
+</td>
+
+                    <td style="padding:12px;border-bottom:1px solid #eee;">
+    {{ product["updated_at"] }}
+</td>
+
+<td style="padding:12px;border-bottom:1px solid #eee;">
+
+    <button
+        type="submit"
+        form="form-{{ product['inventory_id'] }}"
+        style="
+            padding:8px 14px;
+            border:none;
+            background:#087f5b;
+            color:white;
+            border-radius:7px;
+            cursor:pointer;
+        "
+    >
+        💾 Saqlash
+    </button>
+<form
+    action="/inventory/delete/{{ product['inventory_id'] }}"
+    method="post"
+    style="display:inline;"
+>
+    <button
+        type="submit"
+        style="
+            padding:8px 14px;
+            border:none;
+            background:#dc3545;
+            color:white;
+            border-radius:7px;
+            cursor:pointer;
+            margin-left:5px;
+        "
+    >
+        🗑 O‘chirish
+    </button>
+</form>
+</td>
+
+</tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+        {% else %}
+
+        <p>
+            Omborda hozircha dori mavjud emas.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Kerakli dori — kerakli joyda.
+    </p>
+
+</footer>
+
+</body>
+</html>

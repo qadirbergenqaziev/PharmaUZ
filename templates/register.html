@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ro‘yxatdan o‘tish — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div class="location">
+            🏥 Dorixona ro‘yxatdan o‘tishi
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="features">
+
+<div class="container">
+
+    <div class="feature-card"
+         style="
+            max-width:550px;
+            margin:50px auto;
+         ">
+
+        <h1 style="margin-bottom:25px;">
+            🏥 Dorixona ro‘yxatdan o‘tishi
+        </h1>
+	
+	{% if error %}
+
+<div style="
+    background:#f8d7da;
+    color:#842029;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:20px;
+">
+    ⚠️ {{ error }}
+</div>
+
+{% endif %}
+
+        <form action="/register" method="post">
+
+            <label>Dorixona nomi:</label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Masalan: Shifo Pharm"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Shahar:</label>
+
+            <input
+                type="text"
+                name="city"
+                placeholder="Masalan: Nukus shahri"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Manzil:</label>
+
+            <input
+                type="text"
+                name="address"
+                placeholder="Masalan: Berdaq ko‘chasi 15"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Telefon:</label>
+
+            <input
+                type="text"
+                name="phone"
+                placeholder="+998 90 123 45 67"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Login:</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Login yarating"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 18px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <label>Parol:</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Parol yarating"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin:8px 0 25px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                "
+            >
+
+
+            <button
+                type="submit"
+                style="
+                    width:100%;
+                    padding:14px;
+                    border:none;
+                    background:#087f5b;
+                    color:white;
+                    border-radius:8px;
+                    font-size:17px;
+                    cursor:pointer;
+                "
+            >
+                ✅ Ro‘yxatdan o‘tish
+            </button>
+
+        </form>
+
+
+        <div style="
+            margin-top:20px;
+            text-align:center;
+        ">
+
+            Akkauntingiz bormi?
+
+            <a href="/login">
+                Tizimga kirish
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Kerakli dori — kerakli joyda.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Yangi dori qo‘shish — PharmaUZ</title>
+</head>
+
+<body>
+
+<form action="/inventory/add" method="post">
+
+    <label>Dori nomi:</label>
+
+    <select name="medicine_id">
+        <option value="">Dorini tanlang</option>
+
+        {% for medicine in medicines %}
+            <option value="{{ medicine['id'] }}">
+                {{ medicine['name'] }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Narx:</label>
+
+    <input
+        type="number"
+        name="price"
+        placeholder="Masalan: 12000"
+    >
+
+    <br><br>
+
+    <label>Qoldiq:</label>
+
+    <input
+        type="number"
+        name="quantity"
+        placeholder="Masalan: 25"
+    >
+
+    <br><br>
+
+    <button type="submit">
+        ➕ Qo‘shish
+    </button>
+
+</form>
+
+</body>
+
+</html>

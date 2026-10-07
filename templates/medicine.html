@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ medicine["name"] }} — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="container">
+
+        <div class="logo">
+            💊 PharmaUZ
+        </div>
+
+        <div class="location">
+            📍 Nukus
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+<section class="features">
+
+<div class="container">
+
+
+    <!-- Dori haqida -->
+
+    <div class="feature-card"
+         style="max-width:800px;margin:0 auto 30px;text-align:left;">
+
+        <div style="text-align:center;font-size:55px;">
+            💊
+        </div>
+
+        <h1 style="text-align:center;margin:15px 0 25px;">
+            {{ medicine["name"] }}
+        </h1>
+
+
+        <p>
+            <b>Faol modda:</b>
+            {{ medicine["active_ingredient"] }}
+        </p>
+
+        <p>
+            <b>Ishlab chiqaruvchi:</b>
+            {{ medicine["manufacturer"] }}
+        </p>
+
+        <p>
+            <b>Dozasi:</b>
+            {{ medicine["dosage"] }}
+        </p>
+
+        <p>
+            <b>Dori shakli:</b>
+            {{ medicine["form"] }}
+        </p>
+
+
+        {% if medicine["prescription_required"] == 1 %}
+
+            <div style="
+                margin-top:20px;
+                padding:15px;
+                background:#fff3cd;
+                border-radius:10px;
+                color:#856404;
+            ">
+
+                ⚠️ <b>Retsept asosida beriladi.</b>
+
+                <br>
+
+                Ushbu dori shifokor tavsiyasi bilan
+                qo‘llanilishi kerak.
+
+            </div>
+
+        {% else %}
+
+            <div style="
+                margin-top:20px;
+                padding:15px;
+                background:#d1e7dd;
+                border-radius:10px;
+                color:#0f5132;
+            ">
+
+                ✅ Retsept talab qilinmaydi.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- Dorixonalar -->
+
+    <h2 style="text-align:center;margin:30px 0;">
+
+        📍 Dorixonalardagi mavjudligi
+
+    </h2>
+
+
+
+    {% if pharmacies %}
+
+        <div style="
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit,minmax(280px,1fr));
+            gap:20px;
+        ">
+
+
+        {% for pharmacy in pharmacies %}
+
+
+            <div class="feature-card"
+                 style="text-align:left;">
+
+                <div style="
+                    font-size:40px;
+                    text-align:center;
+                    margin-bottom:15px;
+                ">
+                    🏥
+                </div>
+
+
+                <h3 style="text-align:center;">
+                    {{ pharmacy["name"] }}
+                </h3>
+
+
+                <p>
+                    📍 {{ pharmacy["address"] }}
+                </p>
+
+                <p>
+                    📞 {{ pharmacy["phone"] }}
+                </p>
+
+                <p>
+                    🚶 Masofa:
+                    <b>{{ pharmacy["distance"] }} km</b>
+                </p>
+
+
+                <hr style="margin:15px 0;">
+
+
+                <p>
+                    💰 Narxi:
+                    <strong>
+                        {{ "{:,.0f}".format(pharmacy["price"]) }}
+                        so‘m
+                    </strong>
+                </p>
+
+
+                <p>
+                    📦 Mavjud:
+
+                    {% if pharmacy["quantity"] > 0 %}
+
+                        <strong style="color:#087f5b;">
+                            {{ pharmacy["quantity"] }} dona
+                        </strong>
+
+                    {% else %}
+
+                        <strong style="color:red;">
+                            Mavjud emas
+                        </strong>
+
+                    {% endif %}
+
+                </p>
+
+
+                <p style="
+                    font-size:13px;
+                    color:#777;
+                    margin-top:10px;
+                ">
+
+                    🕒 Yangilangan:
+                    {{ pharmacy["updated_at"] }}
+
+                </p>
+
+
+                <a href="/pharmacy/{{ pharmacy['id'] }}"
+                   style="
+                   display:block;
+                   text-align:center;
+                   margin-top:15px;
+                   padding:12px;
+                   background:#087f5b;
+                   color:white;
+                   text-decoration:none;
+                   border-radius:8px;
+                   ">
+
+                    Dorixona haqida →
+
+                </a>
+
+            </div>
+
+
+        {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <div class="feature-card"
+             style="max-width:600px;margin:auto;">
+
+            <div class="icon">
+                📦
+            </div>
+
+            <h3>
+                Hozircha mavjud dorixona topilmadi
+            </h3>
+
+            <p>
+                Ushbu dori bo‘yicha hozircha
+                dorixonalardan ma'lumot kelmagan.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+
+    <div style="
+        text-align:center;
+        margin-top:40px;
+    ">
+
+        <a href="/"
+           style="
+           display:inline-block;
+           padding:12px 25px;
+           background:#17202a;
+           color:white;
+           text-decoration:none;
+           border-radius:8px;
+           ">
+
+            ← Bosh sahifaga
+
+        </a>
+
+    </div>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        © 2026 PharmaUZ.
+        Kerakli dori — kerakli joyda.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
