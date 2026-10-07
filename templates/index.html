@@ -1,131 +1,217 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>PharmaUZ — Dori qidirish</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
     <header class="header">
+
         <div class="container">
-            <div class="logo">💊 PharmaUZ</div>
-            <div class="location">📍 Nukus</div>
+
+            <div class="logo">
+                💊 PharmaUZ
+            </div>
+
+            <div class="location">
+                📍 Nukus
+            </div>
+
         </div>
+
     </header>
 
+
     <main>
+
         <section class="hero">
+
             <div class="container">
 
-                <h1>Dorini izlamang — PharmaUZ topadi</h1>
+                <h1>
+                    Dorini izlamang — PharmaUZ topadi
+                </h1>
 
                 <p>
                     Kerakli dorini qidiring va yaqin dorixonalardagi
                     narxi hamda mavjudligini ko‘ring.
                 </p>
 
-                <form action="/search" method="get" class="search-box">
+
+                <form
+                    action="/search"
+                    method="get"
+                    class="search-box"
+                >
+
                     <input
                         type="text"
                         name="q"
                         placeholder="Dori nomini kiriting..."
                         required
                     >
-                    <button type="submit">🔍 Qidirish</button>
+
+                    <button type="submit">
+                        🔍 Qidirish
+                    </button>
+
                 </form>
 
-            </div>
-        </section>
 
-        <section class="features">
-            <div class="container">
+                <div style="
+                    margin-top:20px;
+                    display:flex;
+                    gap:12px;
+                    justify-content:center;
+                    flex-wrap:wrap;
+                ">
 
-                <h2>PharmaUZ imkoniyatlari</h2>
+                    <a
+                        href="/register"
+                        style="
+                            background:white;
+                            color:#087f5b;
+                            padding:12px 20px;
+                            border-radius:8px;
+                            text-decoration:none;
+                            font-weight:600;
+                        "
+                    >
+                        🏥 Dorixona sifatida ro‘yxatdan o‘tish
+                    </a>
 
-                <div class="feature-grid">
 
-                    <div class="feature-card">
-                        <div class="icon">💊</div>
-                        <h3>Dori haqida ma'lumot</h3>
-                        <p>
-                            Dori nomi, faol moddasi, ishlab chiqaruvchisi
-                            va boshqa ma'lumotlarni ko‘ring.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="icon">📍</div>
-                        <h3>Yaqin dorixona</h3>
-                        <p>
-                            Kerakli dori mavjud bo‘lgan yaqin
-                            dorixonalarni toping.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="icon">💰</div>
-                        <h3>Narxlarni solishtirish</h3>
-                        <p>
-                            Turli dorixonalardagi dori narxlarini
-                            solishtiring.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="icon">📦</div>
-                        <h3>Real qoldiq</h3>
-                        <p>
-                            Dorixonada qancha dona dori borligini
-                            ko‘ring.
-                        </p>
-                    </div>
+                    <a
+                        href="/login"
+                        style="
+                            background:#0b6b4f;
+                            color:white;
+                            padding:12px 20px;
+                            border-radius:8px;
+                            text-decoration:none;
+                            font-weight:600;
+                            border:1px solid white;
+                        "
+                    >
+                        🔐 Dorixona kabinetiga kirish
+                    </a>
 
                 </div>
 
             </div>
+
         </section>
+
+
+        <section class="features">
+
+            <div class="container">
+
+                <h2>
+                    PharmaUZ imkoniyatlari
+                </h2>
+
+
+                <div class="feature-grid">
+
+
+                    <div class="feature-card">
+
+                        <div class="icon">
+                            💊
+                        </div>
+
+                        <h3>
+                            Dori haqida ma'lumot
+                        </h3>
+
+                        <p>
+                            Dori nomi, faol moddasi, ishlab chiqaruvchisi
+                            va boshqa ma'lumotlarni ko‘ring.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Yaqin dorixona
+                        </h3>
+
+                        <p>
+                            Kerakli dori mavjud bo‘lgan yaqin
+                            dorixonalarni toping.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="icon">
+                            💰
+                        </div>
+
+                        <h3>
+                            Narxlarni solishtirish
+                        </h3>
+
+                        <p>
+                            Turli dorixonalardagi dori narxlarini
+                            solishtiring.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="icon">
+                            📦
+                        </div>
+
+                        <h3>
+                            Real qoldiq
+                        </h3>
+
+                        <p>
+                            Dorixonada qancha dona dori borligini
+                            ko‘ring.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
 
+
     <footer>
-        <p>© 2026 PharmaUZ. Kerakli dori — kerakli joyda.</p>
+
+        <p>
+            © 2026 PharmaUZ. Kerakli dori — kerakli joyda.
+        </p>
+
     </footer>
 
 </body>
+
 </html>
-<div style="
-    margin-top:20px;
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
-">
-
-    <a href="/register"
-       style="
-           background:white;
-           color:#087f5b;
-           padding:12px 20px;
-           border-radius:8px;
-           text-decoration:none;
-           font-weight:600;
-       ">
-        🏥 Dorixona sifatida ro‘yxatdan o‘tish
-    </a>
-
-    <a href="/login"
-       style="
-           background:#0b6b4f;
-           color:white;
-           padding:12px 20px;
-           border-radius:8px;
-           text-decoration:none;
-           font-weight:600;
-           border:1px solid white;
-       ">
-        🔐 Dorixona kabinetiga kirish
-    </a>
-
-</div>
