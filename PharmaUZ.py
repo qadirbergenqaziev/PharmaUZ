@@ -377,8 +377,10 @@ def add_inventory():
         return redirect("/login")
 
     conn = get_db()
+    pharmacy_id = session["pharmacy_id"]
 
     if request.method == "POST":
+
         medicine_id = request.form.get("medicine_id")
         price = request.form.get("price")
         quantity = request.form.get("quantity")
@@ -387,46 +389,69 @@ def add_inventory():
         price = float(price)
         quantity = int(quantity)
 
-        pharmacy_id = session["pharmacy_id"]
-
         existing = conn.execute("""
             SELECT id
             FROM inventory
-            WHERE pharmacy_id = ? AND medicine_id = ?
+            WHERE pharmacy_id = ?
+              AND medicine_id = ?
         """, (
             pharmacy_id,
             medicine_id
         )).fetchone()
+
         if existing:
+
             conn.execute("""
-        UPDATE inventory
-        SET price = ?,
-            quantity = ?,
-            updated_at = ?
-        WHERE id = ?
-    """, (
-        price,
-        quantity,
-        datetime.now().strftime("%Y-%m-%d %H:%M"),
-        existing["id"]
-    ))
+                UPDATE inventory
+                SET price = ?,
+                    quantity = ?,
+                    updated_at = ?
+                WHERE id = ?
+            """, (
+                price,
+                quantity,
+                datetime.now().strftime("%Y-%m-%d %H:%M"),
+                existing["id"]
+            ))
 
-            conn.commit()
-            conn.close()
+        else:
 
-    return redirect("/dashboard")
+            conn.execute("""
+                INSERT INTO inventory
+                (
+                    pharmacy_id,
+                    medicine_id,
+                    price,
+                    quantity,
+                    updated_at
+                )
+                VALUES (?, ?, ?, ?, ?)
+            """, (
+                pharmacy_id,
+                medicine_id,
+                price,
+                quantity,
+                datetime.now().strftime("%Y-%m-%d %H:%M")
+            ))
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/dashboard")
+
 
     medicines = conn.execute("""
-    SELECT id, name
-    FROM medicines
-    ORDER BY name
+        SELECT id, name
+        FROM medicines
+        ORDER BY name
     """).fetchall()
 
     conn.close()
+
     return render_template(
-    "add_inventory.html",
-    medicines=medicines
-)
+        "add_inventory.html",
+        medicines=medicines
+    )
 @app.route("/profile")
 def profile():
 
@@ -566,6 +591,76 @@ def admin():
         pharmacy_count=pharmacy_count,
         medicine_count=medicine_count
     )
+
+@app.route("/admin/medicine/add", methods=["GET", "POST"])
+def admin_add_medicine():
+
+    if not session.get("admin_logged_in"):
+        return redirect("/admin/login")
+
+    if request.method == "POST":
+
+        name = request.form.get("name")
+        active_ingredient = request.form.get("active_ingredient")
+        manufacturer = request.form.get("manufacturer")
+        dosage = request.form.get("dosage")
+        form = request.form.get("form")
+        prescription_required = request.form.get("prescription_required")
+
+        if prescription_required == "1":
+            prescription_required = 1
+        else:
+            prescription_required = 0
+
+        conn = get_db()
+
+        existing = conn.execute("""
+            SELECT id
+            FROM medicines
+            WHERE name = ?
+              AND dosage = ?
+              AND form = ?
+        """, (
+            name,
+            dosage,
+            form
+        )).fetchone()
+
+        if existing:
+
+            conn.close()
+
+            return render_template(
+                "admin_add_medicine.html",
+                error="Bu dori katalogda allaqachon mavjud!"
+            )
+
+        conn.execute("""
+            INSERT INTO medicines
+            (
+                name,
+                active_ingredient,
+                manufacturer,
+                dosage,
+                form,
+                prescription_required
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            name,
+            active_ingredient,
+            manufacturer,
+            dosage,
+            form,
+            prescription_required
+        ))
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/admin")
+
+    return render_template("admin_add_medicine.html")
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():

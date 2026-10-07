@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Yangi dori qo‘shish — PharmaUZ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="feature-card"
+             style="max-width:600px; margin:40px auto;">
+
+            <h2>
+                ➕ Yangi dori qo‘shish
+            </h2>
+
+            {% if error %}
+            <p style="color:red;">
+                {{ error }}
+            </p>
+            {% endif %}
+
+            <form method="POST">
+
+                <label>Dori nomi</label>
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Masalan: Paratsetamol"
+                >
+
+                <br><br>
+
+                <label>Faol modda</label>
+                <input
+                    type="text"
+                    name="active_ingredient"
+                    placeholder="Masalan: Paracetamol"
+                >
+
+                <br><br>
+
+                <label>Ishlab chiqaruvchi</label>
+                <input
+                    type="text"
+                    name="manufacturer"
+                    placeholder="Masalan: Nobel"
+                >
+
+                <br><br>
+
+                <label>Doza</label>
+                <input
+                    type="text"
+                    name="dosage"
+                    placeholder="Masalan: 500 mg"
+                >
+
+                <br><br>
+
+                <label>Dori turi</label>
+                <select name="form">
+
+                    <option value="Tabletka">
+                        Tabletka
+                    </option>
+
+                    <option value="Kapsula">
+                        Kapsula
+                    </option>
+
+                    <option value="Sirop">
+                        Sirop
+                    </option>
+
+                    <option value="Inyeksiya">
+                        Inyeksiya
+                    </option>
+
+                    <option value="Maz">
+                        Maz
+                    </option>
+
+                    <option value="Tomchi">
+                        Tomchi
+                    </option>
+
+                    <option value="Kukun">
+                        Kukun
+                    </option>
+
+                    <option value="Boshqa">
+                        Boshqa
+                    </option>
+
+                </select>
+
+                <br><br>
+
+                <label>
+                    Retsept talab qilinadimi?
+                </label>
+
+                <select name="prescription_required">
+
+                    <option value="0">
+                        Yo‘q
+                    </option>
+
+                    <option value="1">
+                        Ha
+                    </option>
+
+                </select>
+
+                <br><br>
+
+                <button type="submit">
+                    💾 Saqlash
+                </button>
+
+                <a href="/admin"
+                   style="margin-left:10px;">
+                    Bekor qilish
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
